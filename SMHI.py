@@ -16,7 +16,9 @@ def convert_timestamp(timestamp):
 
     dt_object = datetime.fromtimestamp(timestamp / 1000)
     return dt_object.strftime("%Y-%m-%d %H:%M:%S")
+
 def print_latest_hour_temp(data):
+
     if 'value' in data and len(data['value']) > 0:
         latest_entry = data['value'][0]
         temperature = latest_entry.get('value')
@@ -45,6 +47,8 @@ if __name__ == "__main__":
                     print_latest_hour_temp(actual_data)
             else:
                 print("No data link found")
+
+                
 
                 
                 
