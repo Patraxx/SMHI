@@ -1,2 +1,28 @@
 scp C:\Users\AUPX\Patrax\SMHI\pietest.py aupx@192.168.10.136:/home/aupx/scripts
 
+Precipitation Category (pcat)
+The precipitation category parameter value is an integer with a value range of 0 to 6. The values represent the following:
+
+Value	Meaning
+0	No precipitation
+1	Snow
+2	Snow and rain
+3	Rain
+4	Drizzle
+5	Freezing rain
+6	Freezing drizzle
+
+
+Parameter table
+Basic information about the parameters. For now there are two level types, hmsl and hl. hmsl means mean sea level and hl means level above ground.
+
+In the service, for all precipitation parameters you get the unit kg/m2/h. This is the same as mm/h.
+
+For some of the parameters you can find more information.
+
+pmp3g
+Parameter	Unit	Level Type	Level (m)	Description	        Value range
+-------------------------------------------------------------------------------
+wd	        degree	    hl	         10	     Wind direction	     Integer
+
+ws	        m/s	        hl	         10	     Wind speed	        Decimal number, one decimal

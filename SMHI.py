@@ -4,6 +4,7 @@ from datetime import datetime
 
 # Define the URL endpoint
 base_url = "https://opendata-download-metobs.smhi.se/api"   
+endpoint = f"{base_url}/version/1.0/parameter/1/station/98230/period/latest-hour/data.json"
 
 def fetch_data(endpoint):
     response = requests.get(endpoint)
@@ -27,26 +28,30 @@ def print_latest_hour_temp(data):
         print(f"Temperature: {temperature} degrees Celsius at {human_readable_timestamp}")
     else:
         print("No temperature data found")
-     
+
+
+def fetch_latest_hour_temp_stockholm():
+    metadata = fetch_data(endpoint)
+    if 'value' in metadata and len(metadata['value']) > 0:
+        latest_entry = metadata['value'][0]
+        temperature = latest_entry.get('value')
+        timestamp = latest_entry.get('date')
+        human_readable_timestamp = convert_timestamp(timestamp)
+      #  print(f"Temperature: {temperature} degrees Celsius at {human_readable_timestamp}")
+        return float(temperature)
+    else:
+        print("No temperature data found")
+       
+
+
+
 if __name__ == "__main__":
-      endpoint = f"{base_url}/version/1.0/parameter/1/station/98230/period/latest-hour.json"
 
-      metadata = fetch_data(endpoint)
+    print(fetch_latest_hour_temp_stockholm())
+    
+   
 
-      if metadata:
-          
-            data_link = None
-            for link in metadata.get('data', [])[0].get('link', []):
-                if link['type'] == 'application/json':
-                  data_link = link['href']
-                  break
-              
-            if data_link:
-                actual_data = fetch_data(data_link)
-                if actual_data:
-                    print_latest_hour_temp(actual_data)
-            else:
-                print("No data link found")
+     
 
                 
 
@@ -59,4 +64,4 @@ if __name__ == "__main__":
 # metrologisk forecast, prognos annars. 
 #97100: Tullinge A  
 #Piteå  161790
-#Stockholm Observatoriekullen 982130 
+#Stockholm Observatoriekullen 98230
