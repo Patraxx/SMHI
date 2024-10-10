@@ -1,0 +1,16 @@
+The script you provided will work if both the Raspberry Pi and the Go server are on the same local network (LAN). However, if they are on different networks (e.g., the Raspberry Pi is at work and the Go server is at home), using a local IP address like 192.168.10.183 will not work because local IP addresses are not routable over the internet.
+
+To make this work over different networks, you need to use the public IP address of your home network or a Dynamic DNS (DDNS) hostname, and configure port forwarding on your home router.
+
+Steps to Make It Work Over Different Networks
+Find Your Public IP Address:
+
+You can find your public IP address by searching "What is my IP" on Google. Let's assume your public IP address is 203.0.113.1.
+Configure Port Forwarding:
+
+Log in to your home router's admin interface.
+Find the port forwarding section.
+Set up a rule to forward incoming traffic on port 8080 to the internal IP address of your Go server (192.168.10.183) on port 8080.
+Update the Script:
+
+Replace the local IP address in the server_url with your public IP address. 
