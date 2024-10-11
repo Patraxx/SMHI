@@ -13,4 +13,4 @@ Find the port forwarding section.
 Set up a rule to forward incoming traffic on port 8080 to the internal IP address of your Go server (192.168.10.183) on port 8080.
 Update the Script:
 
-Replace the local IP address in the server_url with your public IP address. 
+Replace the local IP address in the server_url with your public IP address.
