@@ -39,9 +39,9 @@ try:
         logging.info(f"Temperature: {temp} degrees Celsius")
         
         if temp is not None:
-            if temp <= 7.0:
+            if temp <= 7.5:
                 GPIO.output(ledpin, GPIO.HIGH)
-            elif temp > 7:
+            elif temp > 7.5:
                 GPIO.output(ledpin, GPIO.LOW)
             else:
                 continue  # Skip the rest of the loop if temp is exactly 12.0
