@@ -1,12 +1,12 @@
 
 pcat_meanings = {
-    1: 'none',
-    2: 'snow',
-    3: 'snow and rain',
-    4: 'rain',
-    5: 'drizzle',
-    6: 'freezing rain',
-    7: 'freezing drizzle'
+    0: 'none',
+    1: 'snow',
+    2: 'snow and rain',
+    3: 'rain',
+    4: 'drizzle',
+    5: 'freezing rain',
+    6: 'freezing drizzle'
 }
 
 wsymb2_meanings = {

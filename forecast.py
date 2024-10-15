@@ -25,7 +25,7 @@ current_time = datetime.now()
 parameters_to_include = {"msl", "t","wd", "ws", "r", "gust","Wsymb2", "pcat"}
 
 def getFiveHours(data):
-    table_data
+    table_data = []
     count = 0
     for entry in data['timeSeries']:
         valid_time = entry['validTime'].replace("T", " ").replace("Z", "")
@@ -34,7 +34,7 @@ def getFiveHours(data):
             for param in entry['parameters']:
                 if param['name'] in parameters_to_include:
                     param_name = parameter_descriptions.get(param['name'], param['name'])       
-                    if param['name'] == "wsymb2":
+                    if param['name'] == "Wsymb2":          
                         param_value = wsymb2_meanings.get(param['values'][0], param['values'][0])
                     elif param['name'] == "pcat":
                         param_value = pcat_meanings.get(param['values'][0], param['values'][0])
@@ -53,6 +53,8 @@ def getFiveHours(data):
             if count >= 5:
                 break
     return table_data
+def debug():
+    print("check")
      
 
 def group_data(table_data):

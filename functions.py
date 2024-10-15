@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 
 base_url = "https://opendata-download-metobs.smhi.se/api"
-
+base_url_forecast = "https://opendata-download-metfcst.smhi.se/api"
 time_periods = {'latest-hour', 'latest-day', 'latest-months'}
 
 endpointsthlm = f"{base_url}/version/1.0/parameter/1/station/98230/period/latest-hour/data.json"
@@ -63,25 +63,6 @@ def fetch_latest_data(station_id, parameter_key):
             return latest_entry.get('value', 'no data')
     return 'No data'
 
-def print_all_stations(parameter_key):
-    url = f"{base_url}/version/1.0/parameter/{parameter_key}.json"  ##lägg ihop url med parametrar
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        stations = data['station']
-        raw_title = data.get('title', 'Unknown')
-        parameter_title = raw_title.split(':')[0] if ':' in raw_title else raw_title      
-      #  parameter_data = data['parameter']
-        for station in stations:
-            station_id = station['key']
-            station_name = station['name']
-            latest_value = fetch_latest_data(station_id, parameter_key)
-            if latest_value == 'No data':
-                continue
-            print(f"{station_id}: {station_name} - {parameter_title} - Latest Value: {latest_value}")
-    else:
-        print(f"Failed to retrieve stations for parameter {parameter_key}:", response.status_code)
-
 def print_station_info(station_id, time_period):
     url = f"{base_url}/version/1.0/parameter/1/station/{station_id}/period/{time_period}.json"
     response = requests.get(url)
@@ -104,16 +85,30 @@ def print_hardcoded_stationtemp_latestHour(parameter_key,station_id):
         print("Failed to retrieve data:", response.status_code)
 
 
+def get_nearest_available_point_data(longitude, latitude):
+    pointsearchurl: f"{base_url_forecast}/category/pmp3g/version/2/geotype/point/lon/{longitude}/lat/{latitude}/data.json"
+    response = requests.get(pointsearchurl)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print("Failed to retrieve data:", response.status_code)
+        return None
+
+
+
    
  
  
 
 if __name__ == "__main__":
-  
-  
-  print_hardcoded_stationtemp_latestHour(1, 97400)
+
+    longitude = input("Enter longitude: ")
+    latitude = input("Enter latitude: ")
+    data = get_nearest_available_point_data(longitude, latitude)
 
   
+   
   
 
    # parameter_keys,parameter_titles,  = get_parameters()

@@ -101,3 +101,7 @@ hur lite snö får komma på enheten? vad pratar vi för marginaler.
 #97100: Tullinge A  
 #Piteå  161790
 #Stockholm Observatoriekullen 98230
+
+skarpnäck lat: 59.2637287, long: 18.1106868
+
+Användare ska kunna skriva in stad, ateranativt koordinater.  
