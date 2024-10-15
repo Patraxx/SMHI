@@ -62,4 +62,42 @@ Value	Meaning
 27	Heavy snowfall
 
 
-#Latitud: 59.3417, longitud: 18.0549 Observatoriekullen
+#Latitud: 59.3417, longitud: 18.0549 Observatoriekullen 
+
+
+
+be om data från SMHI en gång i timmen.
+
+skapa en planerad upprullning om det indikeras att bli snö.
+
+om enheten inte har kontakt med API:et (internet nere), och det är mindre än 1.5 grader kallt, rulla upp
+    om luftfuktighet är 60% rulla upp vid 4 grader
+
+
+halva norra sverige från oktober till maj
+
+Om relativa fuktigheten är 100% godkänns snöfall vid högst +1,5°C.
+Om relativa fuktigheten är 60% godkänns snöfall upp till +4°C.
+
+ta väder en gång i timman.
+
+hur lite snö får komma på enheten? vad pratar vi för marginaler. 
+
+
+
+#nynäshamn  58.9159, longitud: 17.9342"
+
+#Saarikoski 68.8032, longitud: 21.2468
+#trelleborg 55.3811, longitud: 13.1195
+#smögen     58.3536, longitud: 11.2178 
+#haparanda  65.8237, longitud: 24.1112
+
+
+                 
+            
+# meterological observations = temp specifik plats
+# om platsen inte ligger nära en smhi station, använd mesan, meterologiska analyser, ange punkt och få tillbaka senaste 24 timmarna
+# metrologisk forecast, prognos annars. 
+#97100: Tullinge A  
+#Piteå  161790
+#Stockholm Observatoriekullen 98230

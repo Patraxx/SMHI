@@ -1,0 +1,58 @@
+
+pcat_meanings = {
+    1: 'none',
+    2: 'snow',
+    3: 'snow and rain',
+    4: 'rain',
+    5: 'drizzle',
+    6: 'freezing rain',
+    7: 'freezing drizzle'
+}
+
+wsymb2_meanings = {
+    1: 'clear sky',
+    2: 'nearly clear sky',
+    3: 'variable cloudiness',
+    4: 'halfclear sky',
+    5: 'cloudy sky',
+    6: 'overcast',
+    7: 'fog',
+    8: 'light rain showers',
+    9: 'moderate rain showers',
+    10: 'heavy rain showers',
+    11: 'thunderstorm',
+    12: 'light sleet showers',
+    13: 'moderate sleet showers',
+    14: 'heavy sleet showers',
+    15: 'light snow showers',
+    16: 'moderate snow showers',
+    17: 'heavy snow showers',
+    18: 'light rain',
+    19: 'moderate rain',
+    20: 'heavy rain',
+    21: 'thunder',
+    22: 'light sleet',
+    23: 'moderate sleet',
+    24: 'heavy sleet',
+}   
+parameter_descriptions = {
+    "msl": "Air pressure",
+    "t": "Air temperature",
+    "vis": "Horizontal visibility",
+    "wd": "Wind direction",
+    "ws": "Wind speed",
+    "r": "Relative humidity",
+    "tstm": "Thunder probability",
+    "tcc_mean": "Mean value of total cloud cover",
+    "lcc_mean": "Mean value of low level cloud cover",
+    "mcc_mean": "Mean value of medium level cloud cover",
+    "hcc_mean": "Mean value of high level cloud cover",
+    "gust": "Wind gust speed",
+    "pmin": "Minimum precipitation intensity",
+    "pmax": "Maximum precipitation intensity",
+    "spp": "Percent of precipitation in frozen form",
+    "pcat": "Precipitation category",
+    "pmean": "Mean precipitation intensity",
+    "pmedian": "Median precipitation intensity",
+    "Wsymb2": "Weather symbol"
+}

@@ -14,3 +14,5 @@ Set up a rule to forward incoming traffic on port 8080 to the internal IP addres
 Update the Script:
 
 Replace the local IP address in the server_url with your public IP address.
+
+

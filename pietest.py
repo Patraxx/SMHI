@@ -76,8 +76,7 @@ except KeyboardInterrupt:
     exit()
 finally:
     GPIO.cleanup()
-        
+    exit()
 
 #scp C:\Users\AUPX\Patrax\SMHI\pietest.py aupx@192.168.10.136:/home/aupx/scripts
 
-#
