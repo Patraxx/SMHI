@@ -7,6 +7,7 @@ from tabulate import tabulate
 base_url = "https://opendata-download-metobs.smhi.se/api"   
 endpointsthlm = f"{base_url}/version/1.0/parameter/1/station/98230/period/latest-hour/data.json"
 endPointAll = f"{base_url}/version/1.0/parameter/1/station-set/all/period/latest-hour/data.json"
+
 def fetch_data(endpoint):
     response = requests.get(endpoint)
     if response.status_code == 200:
@@ -84,6 +85,7 @@ def getCoords():
 coordminmax = 0.6
 
 def citiesFromCoords(lat, lon):
+    data = fetch_data(endPointAll)
     matching_stations = []
     for station in data['station']:
         if station['latitude'] > lat - coordminmax and station['latitude'] < lat + coordminmax and station['longitude'] > lon - coordminmax and station['longitude'] < lon + coordminmax:
@@ -96,6 +98,7 @@ def citiesFromCoords(lat, lon):
         return matching_stations
     else:
         print("No stations nearby given coordinates")
+      
         return None
 
     
@@ -133,6 +136,8 @@ if __name__ == "__main__":
 #trelleborg 55.3811, longitud: 13.1195
 #smögen     58.3536, longitud: 11.2178 
 #haparanda  65.8237, longitud: 24.1112
+
+#lowest lat: 55.3811, long: 13.1195
 
 
      
