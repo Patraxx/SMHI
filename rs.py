@@ -52,7 +52,8 @@ def display_menu():
 
 currentCommand = 0
 
-def run_menu():
+def run_keyboard_menu():
+    current_state = 0 # 0 = stopped, 1 = up, 2 = down
     try:
         while (True):     
             os.system('cls'if os.name == 'nt' else 'clear')
@@ -72,7 +73,7 @@ def run_menu():
                     time.sleep(0.5)
                     continue
                   
-            if  command is not None:
+            if  command is not None: 
                 byte_command = commandSwitch(command)
                 if byte_command is None:
                     if command == 4:
@@ -89,9 +90,34 @@ def run_menu():
     finally:
         serialcom.close()
 
+def curtainState(lastKnownState, command):
+
+    if command == lastKnownState:
+        if lastKnownState == 1:
+            print("Curtain is already stopped")
+        elif lastKnownState == 2:
+            print("Curtain is already up")
+        elif lastKnownState == 3:
+            print("Curtain is already down")
+        return 0
+    else:
+        return command
+
+def run_rs_command(command):
+
+    if command == 1:
+        serialcom.write(bytes1)
+        print(f"Sent command: {string1}")
+    elif command == 2:
+        serialcom.write(bytes2)
+        print(f"Sent command: {string2}")
+    elif command == 3:
+        serialcom.write(bytes3)
+        print(f"Sent command: {string3}")
+    else:
+        print("Invalid command")
+        return None
     
-
-
 if __name__ == '__main__':
    
 
@@ -99,17 +125,6 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-""" Stopp: 		    0x9a 0x00 0x01 0x00 0X0a 0xcc 0xc7
-    Upp från stopp: 0x9a 0x00 0x01 0x00 0x0a 0xdd 0xd6
-    Ner från stopp:	0x9a 0x00 0x01 0x00 0x0a 0xee 0xe5 """
+    """ Stopp: 		    0x9a 0x00 0x01 0x00 0X0a 0xcc 0xc7
+        Upp från stopp: 0x9a 0x00 0x01 0x00 0x0a 0xdd 0xd6
+        Ner från stopp:	0x9a 0x00 0x01 0x00 0x0a 0xee 0xe5 """
