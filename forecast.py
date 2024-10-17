@@ -11,13 +11,6 @@ approvedTime = "/api/category/{category}/version/{version}/approvedtime.json"
 
 endpoint = f"{base_url}/category/pmp3g/version/2/geotype/point/lon/18.400/lat/59.100/data.json"
 
-#/category/pmp3g/version/2/geotype/point/lon/18.063240/lat/59.334591/data.json
-
-response = requests.get(endpoint)
-
-# Sample JSON response (replace this with your actual data)
-data = response.json()
-
 
 # Get the current time and calculate the target time (3 hours from now)
 current_time = datetime.now()
@@ -53,9 +46,6 @@ def getFiveHours(data):
             if count >= 5:
                 break
     return table_data
-def debug():
-    print("check")
-     
 
 def group_data(table_data):
     grouped_data = {}
@@ -68,6 +58,13 @@ def group_data(table_data):
 # Output the filtered results
 if __name__ == "__main__":
 
+    response = requests.get(endpoint)
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        print("Failed to retrieve data:", response.status_code)
+        exit()
+
     table_data= getFiveHours(data)
     grouped_data = group_data(table_data)
 
@@ -75,3 +72,4 @@ if __name__ == "__main__":
         print(f"Date: {date}")
         print(tabulate(rows, headers=["Time", "Parameter", "Level Type", "Level", "Unit", "Value"], tablefmt="grid"))
         print("\n")
+        

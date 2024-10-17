@@ -52,15 +52,6 @@ def chooseStationInput():
   print(" ")
   return input("Enter station name: ")
 
-def citiesbycoords(lat, lon):
-    for station in data['station']:
-        if station['latitude'] == lat and station['longitude'] == lon:
-            print(f"{station['name']} ({station['key']}) - Lat: {station['latitude']} Long: {station['longitude']}")
-            return station['key']
-    print("No station found for the given coordinates")
-    return None
-
-
 def calculateCoordinateSpan(stations):
     if not stations:
         return None
@@ -77,56 +68,20 @@ def calculateCoordinateSpan(stations):
         'max_longitude': max_lon
     }
 
-def getCoords():
-    lat = float(input("Enter latitude: "))
-    lon = float(input("Enter longitude: "))
-    return lat, lon
 
 coordminmax = 0.6
 
-def citiesFromCoords(lat, lon):
-    data = fetch_data(endPointAll)
-    matching_stations = []
-    for station in data['station']:
-        if station['latitude'] > lat - coordminmax and station['latitude'] < lat + coordminmax and station['longitude'] > lon - coordminmax and station['longitude'] < lon + coordminmax:
-            matching_stations.append(station)
-    if matching_stations:
-        table = []
-        for match in matching_stations:
-            table.append([match['name'], match['key'], match['latitude'], match['longitude']])
-        print(tabulate(table, headers=["Name", "Key", "Latitude", "Longitude"], tablefmt="pretty"))
-        return matching_stations
-    else:
-        print("No stations nearby given coordinates")
-      
-        return None
 
     
 
    
 
 if __name__ == "__main__":
-   
-   lat, lon = getCoords()
-   matching_stations = citiesFromCoords(lat, lon)
 
+ 
 
+ 
 
-
-   # chooseStation('lund')
-   while(True):
-         
-    station_name = chooseStationInput()
-    matching_stations = chooseStation(station_name)
-
-    if matching_stations: 
-       coordinate_span = calculateCoordinateSpan(matching_stations)
-       if coordinate_span:
-            print(f"Coordinate span for  {station_name}:")
-            print(f"Latitude: {coordinate_span['min_latitude']:.2f} - {coordinate_span['max_latitude']:.2f}")
-            print(f"Longitude: {coordinate_span['min_longitude']:.2f} - {coordinate_span['max_longitude']:.2f}")
-            print(f"Longitude span is {coordinate_span['max_longitude'] - coordinate_span['min_longitude']:.2f}")
-            print(f"Latitude span is {coordinate_span['max_latitude'] - coordinate_span['min_latitude']:.2f}")
 
   ##  print(fetch_latest_hour_temp_stockholm())
 

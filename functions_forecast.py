@@ -2,16 +2,15 @@ import requests
 from datetime import datetime
 from tabulate import tabulate
 
-base_url = "https://opendata-download-metobs.smhi.se/api"
+
 base_url_forecast = "https://opendata-download-metfcst.smhi.se/api"
 
 time_periods = {'latest-hour', 'latest-day', 'latest-months'}
 
-endpointsthlm = f"{base_url}/version/1.0/parameter/1/station/98230/period/latest-hour/data.json"
-endPointAll = f"{base_url}/version/1.0/parameter/1/station-set/all/period/latest-hour/data.json"
 
 
-def fetch_data(endpoint):
+
+def fetch_data_forecast(endpoint):
     response = requests.get(endpoint)
     if response.status_code == 200:
         return response.json()
@@ -24,47 +23,14 @@ def convert_timestamp(timestamp):
     return dt_object.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def fetch_latest_hour_temp_stockholm():
-    metadata = fetch_data(endpointsthlm)
-    if 'value' in metadata and len(metadata['value']) > 0:
-        latest_entry = metadata['value'][0]
-        temperature = latest_entry.get('value')
-        timestamp = latest_entry.get('date')
-        human_readable_timestamp = convert_timestamp(timestamp)
-      #  print(f"Temperature: {temperature} degrees Celsius at {human_readable_timestamp}")
-        return float(temperature)
-    else:
-        print("No temperature data found")
+def getCoords():
+    lat = float(input("Enter latitude: "))
+    lon = float(input("Enter longitude: "))
+    return lat, lon
 
-def get_parameters():
-    url = f"{base_url}/version/1.0.json"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        parameters = data['resource']
-        parameter_keys = []
-        parameter_titles  = []
-        for parameter in parameters:
-            key = parameter['key']
-            title = parameter['title']
-            parameter_keys.append(key)
-            parameter_titles.append(title)
-          #  print(f"{key}: {title}")
-        return parameter_keys, parameter_titles
-    else:
-        print("Failed to retrieve parameters:", response.status_code)
-        return []
+
+
     
-def fetch_latest_data(station_id, parameter_key):
-    period_url = f"{base_url}/version/1.0/parameter/{parameter_key}/station/{station_id}/period/latest-hour/data.json"
-   # GET /api/version/1.0/parameter/1/station/159880/period/latest-months.atom
-    response = requests.get(period_url)
-    if response.status_code == 200:
-        data = response.json()
-        if 'value' in data and len(data['value']) > 0:
-            latest_entry = data['value'][0]      
-            return latest_entry.get('value', 'no data')
-    return 'No data'
 
 def print_station_info(station_id, time_period):
     url = f"{base_url}/version/1.0/parameter/1/station/{station_id}/period/{time_period}.json"
@@ -75,17 +41,6 @@ def print_station_info(station_id, time_period):
         print(f"Station: {station_name}")
 
 
-def print_hardcoded_stationtemp_latestHour(parameter_key,station_id):
-    url = f"{base_url}/version/1.0/parameter/{parameter_key}/station/{station_id}/period/latest-hour/data.json"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        station_name = data['station']['name']
-        station_temp = data['value'][0]['value']
-        timestamp = station_temp.get('date')
-        print(f"Station: {station_name} - Temperature: {station_temp} at {timestamp}")
-    else:
-        print("Failed to retrieve data:", response.status_code)
 
 #https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.1/lat/59.2/data.json
 
@@ -130,22 +85,7 @@ def coord_input_loop():
             continue
         else:
             return longitude, latitude
-        
-coordminmax = 0.6
-        
-def citiesFromCoords(lon, lat):
-    matching_stations = []
-    for station in data['station']:
-        if station['latitude'] > lat - coordminmax and station['latitude'] < lat + coordminmax and station['longitude'] > lon - coordminmax and station['longitude'] < lon + coordminmax:
-            matching_stations.append(station)
-    if matching_stations:
-        table = []
-        for match in matching_stations:
-            table.append([match['name'], match['key'], match['latitude'], match['longitude']])
-        print(tabulate(table, headers=["Name", "Key", "Latitude", "Longitude"], tablefmt="pretty"))
-        return matching_stations
-    else:
-        print("No stations nearby given coordinates")
+
    
 
 
